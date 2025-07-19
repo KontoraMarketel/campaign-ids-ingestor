@@ -11,8 +11,10 @@ async def upload_to_minio(
         data: str,
         key: str,
 ):
+
     if not isinstance(data, str):
         data = json.dumps(data, ensure_ascii=False)
+
     session = aioboto3.Session()
     async with session.client(
             service_name='s3',

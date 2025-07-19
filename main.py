@@ -55,7 +55,7 @@ async def main():
     consumer = AIOKafkaConsumer(
         CONSUMER_TOPIC,
         bootstrap_servers=BOOTSTRAP_SERVERS,
-        group_id="commission-ingestors",
+        group_id="ads-campaigns-ids-ingestors",
         auto_offset_reset="earliest",
         enable_auto_commit=True,
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),

@@ -25,7 +25,7 @@ async def fetch_data(api_token: str) -> (list, list):
 async def _fetch_all_campaigns_info(session: aiohttp.ClientSession, campaign_ids: list) -> list:
     result = []
     for batch in chunked(campaign_ids, 50):
-        async with session.post(GET_ADS_INFO_URL) as response:
+        async with session.post(GET_ADS_INFO_URL, json=batch) as response:
             data = await response.json()
             response.raise_for_status()
             result.extend(data)

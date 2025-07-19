@@ -71,15 +71,17 @@ async def main():
         async for msg in consumer:
             try:
                 next_msg = await handle_message(msg.value)
+
+                encoded_task_id = str(next_msg["task_id"]).encode("utf-8")
                 await producer.send(
                     PRODUCER_INGEST_ADS_STATS_TOPIC,
                     value=next_msg,
-                    key=next_msg['task_id'].encode("utf-8"),
+                    key=encoded_task_id,
                 )
                 await producer.send(
                     PRODUCER_INGEST_ADS_INFO_TOPIC,
                     value=next_msg,
-                    key=next_msg['task_id'].encode("utf-8"),
+                    key=encoded_task_id,
                 )
             except Exception as e:
                 # TODO: write task to out of the box table

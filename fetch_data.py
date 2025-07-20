@@ -17,9 +17,10 @@ async def fetch_data(api_token: str) -> (list, list):
     # yesterday = (dt_ts - timedelta(days=1)).strftime("%Y-%m-%d")
 
     async with aiohttp.ClientSession(headers=headers) as session:
-        campaign_ids = await _fetch_all_campaigns(session)
-
-        return campaign_ids
+        async with session.get(GET_ALL_ADS_URL) as response:
+            data = await response.json()
+            response.raise_for_status()
+            return data
 
 
 async def _fetch_all_campaigns_info(session: aiohttp.ClientSession, campaign_ids: list) -> list:

@@ -28,7 +28,7 @@ async def handle_message(msg):
     logging.info(f"Start processing task {task_id}")
 
     data = await fetch_data(api_token)
-    filename = "all-ads-campaigns-ids.json"
+    filename = "all-ads-campaigns.json"
     prefix = f"{ts}/{task_id}/"
     minio_key = prefix + filename
 

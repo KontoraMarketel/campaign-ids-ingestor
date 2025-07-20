@@ -44,14 +44,7 @@ async def _fetch_ad_stats(session: aiohttp.ClientSession, campaign_ids: list, ye
 
 
 async def _fetch_all_campaigns(session: aiohttp.ClientSession) -> str:
-    campaign_ids = []
     async with session.get(GET_ALL_ADS_URL) as response:
-
         data = await response.json()
         response.raise_for_status()
-
-        for group in data.get("adverts", []):
-            for advert in group.get("advert_list", []):
-                campaign_ids.append(advert.get("advertId"))
-
-    return campaign_ids
+        return data
